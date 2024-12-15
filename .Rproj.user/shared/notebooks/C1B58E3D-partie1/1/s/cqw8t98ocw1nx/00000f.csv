@@ -1,0 +1,8 @@
+"0","#| code-fold: true"
+"0","#| code-summary: ""Voir la correction"""
+"0","a<-c(a1,a2)"
+"0","class(a)"
+"1","[1]"
+"1"," ""character"""
+"1","
+"

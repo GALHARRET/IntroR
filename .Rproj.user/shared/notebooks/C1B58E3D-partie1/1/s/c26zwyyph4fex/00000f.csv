@@ -1,0 +1,7 @@
+"0","#| code-fold: true"
+"0","#| code-summary: ""Voir la correction"""
+"0","Groupe<-sample(1:5,50,replace=T)"
+"0","Mesures$Groupe<-Groupe"
+"2","Warning in Mesures$Groupe <- Groupe :"
+"2"," Coercing LHS to a list
+"

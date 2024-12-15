@@ -1,0 +1,4 @@
+"0","#| code-fold: true"
+"0","#| code-summary: ""Voir la correction"""
+"0","z<-seq(1,100,2)"
+"0","S<-y+z"
