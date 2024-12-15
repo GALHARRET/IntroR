@@ -11,6 +11,7 @@ book:
     - vecteurs.qmd
     - matrices.qmd
     - data_frame.qmd
+    - manipulation_df.qmd
     - graphiques.qmd
     - programmer.qmd
 

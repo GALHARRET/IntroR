@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction à R - 4&nbsp; Les graphiques</title>
+<title>Introduction à R - 5&nbsp; Les graphiques</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./programmer.html" rel="next">
-<link href="./data_frame.html" rel="prev">
+<link href="./manipulation_df.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./graphiques.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Les graphiques</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./graphiques.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Les graphiques</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -166,14 +166,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./manipulation_df.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Manipulations data-frame</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./graphiques.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Les graphiques</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Les graphiques</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./programmer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Programmer sur R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Programmer sur R</span></span></a>
   </div>
 </li>
     </ul>
@@ -186,21 +192,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#graphiques-univariées" id="toc-graphiques-univariées" class="nav-link active" data-scroll-target="#graphiques-univariées"><span class="header-section-number">4.1</span> Graphiques univariées</a>
+  <li><a href="#graphiques-univariées" id="toc-graphiques-univariées" class="nav-link active" data-scroll-target="#graphiques-univariées"><span class="header-section-number">5.1</span> Graphiques univariées</a>
   <ul class="collapse">
-  <li><a href="#variable-qualitative" id="toc-variable-qualitative" class="nav-link" data-scroll-target="#variable-qualitative"><span class="header-section-number">4.1.1</span> Variable qualitative :</a></li>
-  <li><a href="#variable-quantitative" id="toc-variable-quantitative" class="nav-link" data-scroll-target="#variable-quantitative"><span class="header-section-number">4.1.2</span> Variable quantitative</a></li>
+  <li><a href="#variable-qualitative" id="toc-variable-qualitative" class="nav-link" data-scroll-target="#variable-qualitative"><span class="header-section-number">5.1.1</span> Variable qualitative :</a></li>
+  <li><a href="#variable-quantitative" id="toc-variable-quantitative" class="nav-link" data-scroll-target="#variable-quantitative"><span class="header-section-number">5.1.2</span> Variable quantitative</a></li>
   </ul></li>
-  <li><a href="#graphiques-bivariés" id="toc-graphiques-bivariés" class="nav-link" data-scroll-target="#graphiques-bivariés"><span class="header-section-number">4.2</span> Graphiques bivariés :</a>
+  <li><a href="#graphiques-bivariés" id="toc-graphiques-bivariés" class="nav-link" data-scroll-target="#graphiques-bivariés"><span class="header-section-number">5.2</span> Graphiques bivariés :</a>
   <ul class="collapse">
-  <li><a href="#une-variable-quantitative-en-fonction-dune-variable-qualitative" id="toc-une-variable-quantitative-en-fonction-dune-variable-qualitative" class="nav-link" data-scroll-target="#une-variable-quantitative-en-fonction-dune-variable-qualitative"><span class="header-section-number">4.2.1</span> Une variable quantitative en fonction d’une variable qualitative</a></li>
+  <li><a href="#une-variable-quantitative-en-fonction-dune-variable-qualitative" id="toc-une-variable-quantitative-en-fonction-dune-variable-qualitative" class="nav-link" data-scroll-target="#une-variable-quantitative-en-fonction-dune-variable-qualitative"><span class="header-section-number">5.2.1</span> Une variable quantitative en fonction d’une variable qualitative</a></li>
   </ul></li>
-  <li><a href="#une-variable-quantitative-en-fonction-dune-autre-variable-quantitative" id="toc-une-variable-quantitative-en-fonction-dune-autre-variable-quantitative" class="nav-link" data-scroll-target="#une-variable-quantitative-en-fonction-dune-autre-variable-quantitative"><span class="header-section-number">4.3</span> Une variable quantitative en fonction d’une autre variable quantitative</a></li>
-  <li><a href="#une-variable-qualitative-en-fonction-dune-autre-variable-qualitative" id="toc-une-variable-qualitative-en-fonction-dune-autre-variable-qualitative" class="nav-link" data-scroll-target="#une-variable-qualitative-en-fonction-dune-autre-variable-qualitative"><span class="header-section-number">4.4</span> Une variable qualitative en fonction d’une autre variable qualitative</a></li>
-  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="header-section-number">4.5</span> Exercices</a>
+  <li><a href="#une-variable-quantitative-en-fonction-dune-autre-variable-quantitative" id="toc-une-variable-quantitative-en-fonction-dune-autre-variable-quantitative" class="nav-link" data-scroll-target="#une-variable-quantitative-en-fonction-dune-autre-variable-quantitative"><span class="header-section-number">5.3</span> Une variable quantitative en fonction d’une autre variable quantitative</a></li>
+  <li><a href="#une-variable-qualitative-en-fonction-dune-autre-variable-qualitative" id="toc-une-variable-qualitative-en-fonction-dune-autre-variable-qualitative" class="nav-link" data-scroll-target="#une-variable-qualitative-en-fonction-dune-autre-variable-qualitative"><span class="header-section-number">5.4</span> Une variable qualitative en fonction d’une autre variable qualitative</a></li>
+  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="header-section-number">5.5</span> Exercices</a>
   <ul class="collapse">
-  <li><a href="#exercice-1" id="toc-exercice-1" class="nav-link" data-scroll-target="#exercice-1"><span class="header-section-number">4.5.1</span> Exercice 1 :</a></li>
-  <li><a href="#exercice-2" id="toc-exercice-2" class="nav-link" data-scroll-target="#exercice-2"><span class="header-section-number">4.5.2</span> Exercice 2 :</a></li>
+  <li><a href="#exercice-1" id="toc-exercice-1" class="nav-link" data-scroll-target="#exercice-1"><span class="header-section-number">5.5.1</span> Exercice 1 :</a></li>
+  <li><a href="#exercice-2" id="toc-exercice-2" class="nav-link" data-scroll-target="#exercice-2"><span class="header-section-number">5.5.2</span> Exercice 2 :</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -210,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Les graphiques</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Les graphiques</span></h1>
 </div>
 
 
@@ -252,10 +258,10 @@ Attaching package: 'dplyr'</code></pre>
     intersect, setdiff, setequal, union</code></pre>
 </div>
 </div>
-<section id="graphiques-univariées" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="graphiques-univariées"><span class="header-section-number">4.1</span> Graphiques univariées</h2>
-<section id="variable-qualitative" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="variable-qualitative"><span class="header-section-number">4.1.1</span> Variable qualitative :</h3>
+<section id="graphiques-univariées" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="graphiques-univariées"><span class="header-section-number">5.1</span> Graphiques univariées</h2>
+<section id="variable-qualitative" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="variable-qualitative"><span class="header-section-number">5.1.1</span> Variable qualitative :</h3>
 <p>On veut représenter le nombre de voitures correspondant à chaque catégorie de cyl :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
@@ -325,8 +331,8 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>On peut aussi les mettre selon la même technique sur le diagramme en barres.</p>
 </section>
-<section id="variable-quantitative" class="level3" data-number="4.1.2">
-<h3 data-number="4.1.2" class="anchored" data-anchor-id="variable-quantitative"><span class="header-section-number">4.1.2</span> Variable quantitative</h3>
+<section id="variable-quantitative" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="variable-quantitative"><span class="header-section-number">5.1.2</span> Variable quantitative</h3>
 <p>Sous la forme d’histogramme :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars,<span class="fu">aes</span>(<span class="at">x=</span>wt))<span class="sc">+</span></span>
@@ -356,10 +362,10 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </section>
 </section>
-<section id="graphiques-bivariés" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="graphiques-bivariés"><span class="header-section-number">4.2</span> Graphiques bivariés :</h2>
-<section id="une-variable-quantitative-en-fonction-dune-variable-qualitative" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="une-variable-quantitative-en-fonction-dune-variable-qualitative"><span class="header-section-number">4.2.1</span> Une variable quantitative en fonction d’une variable qualitative</h3>
+<section id="graphiques-bivariés" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="graphiques-bivariés"><span class="header-section-number">5.2</span> Graphiques bivariés :</h2>
+<section id="une-variable-quantitative-en-fonction-dune-variable-qualitative" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="une-variable-quantitative-en-fonction-dune-variable-qualitative"><span class="header-section-number">5.2.1</span> Une variable quantitative en fonction d’une variable qualitative</h3>
 <p>Pour les boxplot c’est simple :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(cyl),<span class="at">y=</span>wt))<span class="sc">+</span></span>
@@ -401,8 +407,8 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </section>
 </section>
-<section id="une-variable-quantitative-en-fonction-dune-autre-variable-quantitative" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="une-variable-quantitative-en-fonction-dune-autre-variable-quantitative"><span class="header-section-number">4.3</span> Une variable quantitative en fonction d’une autre variable quantitative</h2>
+<section id="une-variable-quantitative-en-fonction-dune-autre-variable-quantitative" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="une-variable-quantitative-en-fonction-dune-autre-variable-quantitative"><span class="header-section-number">5.3</span> Une variable quantitative en fonction d’une autre variable quantitative</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars,<span class="fu">aes</span>(<span class="at">x=</span>wt,<span class="at">y=</span>mpg))<span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -415,8 +421,8 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </section>
-<section id="une-variable-qualitative-en-fonction-dune-autre-variable-qualitative" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="une-variable-qualitative-en-fonction-dune-autre-variable-qualitative"><span class="header-section-number">4.4</span> Une variable qualitative en fonction d’une autre variable qualitative</h2>
+<section id="une-variable-qualitative-en-fonction-dune-autre-variable-qualitative" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="une-variable-qualitative-en-fonction-dune-autre-variable-qualitative"><span class="header-section-number">5.4</span> Une variable qualitative en fonction d’une autre variable qualitative</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstats)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(cyl),<span class="at">fill=</span><span class="fu">factor</span>(vs)))<span class="sc">+</span></span>
@@ -437,10 +443,10 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </section>
-<section id="exercices" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="exercices"><span class="header-section-number">4.5</span> Exercices</h2>
-<section id="exercice-1" class="level3" data-number="4.5.1">
-<h3 data-number="4.5.1" class="anchored" data-anchor-id="exercice-1"><span class="header-section-number">4.5.1</span> Exercice 1 :</h3>
+<section id="exercices" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="exercices"><span class="header-section-number">5.5</span> Exercices</h2>
+<section id="exercice-1" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="exercice-1"><span class="header-section-number">5.5.1</span> Exercice 1 :</h3>
 <p>Télécharger le fichier <a href="temperat1.csv">temperat</a> puis ouvrez le dans RStudio (utiliser l’interface graphique), la première colonne correspondra aux noms des lignes du data.frame.</p>
 <p><strong><em>Premier travail :</em></strong> On veut reproduire le graphe suivant :</p>
 <div class="cell" data-layout-align="center">
@@ -479,8 +485,8 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>On peut redéfinir</p>
 </section>
-<section id="exercice-2" class="level3" data-number="4.5.2">
-<h3 data-number="4.5.2" class="anchored" data-anchor-id="exercice-2"><span class="header-section-number">4.5.2</span> Exercice 2 :</h3>
+<section id="exercice-2" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="exercice-2"><span class="header-section-number">5.5.2</span> Exercice 2 :</h3>
 <p>Télécharger le fichier <a href="bordeaux1.csv">bordeaux1</a> et ouvrez le dans R à l’aide de l’interface graphique. Les années seront utilisées pour nommer les lignes.</p>
 <p>Il s’agit des données des vins de Bordeaux issues de “Méthodes statistiques en gestion” (M. Tenenhaus, Dunod, 1994).</p>
 <p>On cherche à étudier l’éventuelle relation entre la qualité du vin et les variables météorologiques. Les variables sont les suivantes : TEMPERATURE : somme des températures moyennes journalières, SOLEIL : durée d’insolation, CHALEUR : nombre de jours de grande chaleur, PLUIE : hauteur des pluies, Y (QUALITE DU VIN) : 1 (Bon), 2 (Moyen), 3 (Médiocre).</p>
@@ -1010,13 +1016,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_frame.html" class="pagination-link" aria-label="Les data frames">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Les data frames</span></span>
+      <a href="./manipulation_df.html" class="pagination-link" aria-label="Manipulations data-frame">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Manipulations data-frame</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./programmer.html" class="pagination-link" aria-label="Programmer sur R">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Programmer sur R</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Programmer sur R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

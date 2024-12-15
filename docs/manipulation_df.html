@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Galharret Jean-Michel">
-<meta name="dcterms.date" content="2024-01-01">
 
-<title>Introduction à R</title>
+<title>Introduction à R - 4&nbsp; Manipulations data-frame</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./vecteurs.html" rel="next">
+<link href="./graphiques.html" rel="next">
+<link href="./data_frame.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -116,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./manipulation_df.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Manipulations data-frame</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -143,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -167,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./manipulation_df.html" class="sidebar-item-text sidebar-link">
+  <a href="./manipulation_df.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Manipulations data-frame</span></span></a>
   </div>
 </li>
@@ -193,15 +192,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#fichiers-gérés-par-r" id="toc-fichiers-gérés-par-r" class="nav-link" data-scroll-target="#fichiers-gérés-par-r">Fichiers gérés par R</a></li>
-  <li><a href="#interfaces-de-r" id="toc-interfaces-de-r" class="nav-link" data-scroll-target="#interfaces-de-r">Interfaces de R :</a></li>
-  <li><a href="#les-librairies-de-r-ou-packages" id="toc-les-librairies-de-r-ou-packages" class="nav-link" data-scroll-target="#les-librairies-de-r-ou-packages">Les librairies de R (ou packages)</a></li>
-  <li><a href="#installer-r-et-rstudio" id="toc-installer-r-et-rstudio" class="nav-link" data-scroll-target="#installer-r-et-rstudio">Installer R et RStudio</a></li>
-  <li><a href="#premiers-pas-dans-r" id="toc-premiers-pas-dans-r" class="nav-link" data-scroll-target="#premiers-pas-dans-r">Premiers pas dans R</a></li>
-  <li><a href="#les-variables" id="toc-les-variables" class="nav-link" data-scroll-target="#les-variables">Les variables</a></li>
-  </ul></li>
+  <li><a href="#le-pipe" id="toc-le-pipe" class="nav-link active" data-scroll-target="#le-pipe"><span class="header-section-number">4.1</span> Le pipe</a></li>
+  <li><a href="#la-fonction-mutate" id="toc-la-fonction-mutate" class="nav-link" data-scroll-target="#la-fonction-mutate"><span class="header-section-number">4.2</span> La fonction mutate()</a></li>
+  <li><a href="#group_by-summarise" id="toc-group_by-summarise" class="nav-link" data-scroll-target="#group_by-summarise"><span class="header-section-number">4.3</span> group_by(), summarise()</a></li>
   </ul>
 </nav>
     </div>
@@ -210,26 +203,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction à R</h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Manipulations data-frame</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Galharret Jean-Michel </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -239,126 +220,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>Bref historique :</p>
+<section id="le-pipe" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="le-pipe"><span class="header-section-number">4.1</span> Le pipe</h2>
+<p>Le pipe |&gt; natif de R ou bien le pipe de la librairie dplyr permettent d’enchainer une suite de calcul.</p>
+<p>Par exemple, on veut calculer la moyenne de la colonne mpg pour les voitures qui ont 6 cylindres et qui sont automatiques (mtcars) :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars[mtcars<span class="sc">$</span>cyl<span class="sc">==</span><span class="dv">6</span> <span class="sc">&amp;</span> mtcars<span class="sc">$</span>am<span class="sc">==</span><span class="dv">1</span>,<span class="st">"mpg"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.56667</code></pre>
+</div>
+</div>
+<p>ce qui donne avec le pipe :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cyl<span class="sc">==</span><span class="dv">6</span> <span class="sc">&amp;</span> am<span class="sc">==</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mpg) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.56667</code></pre>
+</div>
+</div>
+<p>La fonction unlist permet de transformer la colonne obtenue par select.</p>
+<p>Le pipe revient donc à enchainer des fonctions.</p>
+<p>Le package dplyr possède de nombreuses fonctions permettant de faire de la gestion de données :</p>
 <ul>
-<li><p>R est à la fois un logiciel et un langage. Il est gratuit et open source.</p></li>
-<li><p>Version libre et gratuite du langage S développée chez Bell Laboratories par John Chambers (1980).</p></li>
-<li><p>Robert Gentleman &amp; Ross Ihaka (Université d’Auckland) proposent une première version de R en 1993.</p></li>
-<li><p>R Core Team crée en 1997 assure la maintenance et l’évolution de R.</p></li>
-<li><p>CRAN (Comprehensive R Archive Network) regroupe et met à disposition l’ensemble des éléments de R.</p></li>
-</ul>
-<section id="fichiers-gérés-par-r" class="level2">
-<h2 class="anchored" data-anchor-id="fichiers-gérés-par-r">Fichiers gérés par R</h2>
-<ul>
-<li><p>Les scripts (fichiers .R) : ils vont contenir les codes R ainsi que des commentaires sur ces codes (très importants par la suite).</p></li>
-<li><p>Les environnements (fichiers .RData) qui seront des ensembles d’objets.</p></li>
+<li><p>select, pour sélectionner des colonnes</p></li>
+<li><p>filter, pour filtrer des lignes selon un (ou plusieurs) critère.</p></li>
 </ul>
 </section>
-<section id="interfaces-de-r" class="level2">
-<h2 class="anchored" data-anchor-id="interfaces-de-r">Interfaces de R :</h2>
-<ul>
-<li><p>La basique : Rgui (déconseillée) composée d’une fenêtre principale appelée la Console à partir de laquelle on exécute les fonctions.</p></li>
-<li><p>RStudio : interface graphique utilisée.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
+<section id="la-fonction-mutate" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="la-fonction-mutate"><span class="header-section-number">4.2</span> La fonction mutate()</h2>
+<p>Elle permet de définir de nouvelles colonnes dans un data frame qui seront le résultat d’un calcul. Par exemple la consommation des voitures est exprimée en mpg (miles per galon) si on veut l’exprimer en L/100km alors on utilise (L/100 km) = 282.48 / MPG</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="ot">&lt;-</span>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"L/100km"</span><span class="ot">=</span><span class="fl">282.48</span><span class="sc">/</span>mpg) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="group_by-summarise" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="group_by-summarise"><span class="header-section-number">4.3</span> group_by(), summarise()</h2>
+<p>La fonction group_by() permettra de faire des calculs selon les modalités d’une variable qualitative :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl,am) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">M=</span><span class="fu">mean</span>(<span class="st">`</span><span class="at">L/100km</span><span class="st">`</span>),<span class="at">SD=</span><span class="fu">sd</span>(<span class="st">`</span><span class="at">L/100km</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'cyl'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+# Groups:   cyl [3]
+    cyl    am     M    SD
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     4     0  12.4 0.751
+2     4     1  10.3 1.76 
+3     6     0  14.8 1.21 
+4     6     1  13.8 0.462
+5     8     0  19.4 4.08 
+6     8     1  18.4 0.636</code></pre>
+</div>
+</div>
+<p>Le résultat est un nouveau data frame dans le format tibble que l’on peut utiliser ensuite dans ggplot par exemple.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(cyl),<span class="at">y=</span>M,<span class="at">color=</span><span class="fu">factor</span>(am)))<span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>M<span class="dv">-2</span><span class="sc">*</span>SD,<span class="at">ymax=</span>M<span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>SD),<span class="at">width=</span>.<span class="dv">1</span>,<span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="TD1_files/fig1.png" class="img-fluid figure-img"></p>
-<figcaption>RStudio</figcaption>
+<p><img src="manipulation_df_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</section>
-<section id="les-librairies-de-r-ou-packages" class="level2">
-<h2 class="anchored" data-anchor-id="les-librairies-de-r-ou-packages">Les librairies de R (ou packages)</h2>
-<p>De très nombreux packages ont été développés pour R, ils permettent d’ajouter de nouvelles fonctionnalités. Pour installer un package on va dans Tools -&gt; Install Packages</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="TD1_files/fig0.png" class="img-fluid figure-img"></p>
-<figcaption>Installer un package</figcaption>
-</figure>
-</div>
-<p>Par exemple (ne le faites pas ) on installe le package equivalence, ce qui est très important c’est qu’il faut demander à R installer toutes les dépendances du package. Ensuite il faut absolument charger le package dans le script pour pouvoir l’utiliser.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equivalence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="installer-r-et-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="installer-r-et-rstudio">Installer R et RStudio</h2>
-<p>Les deux logiciels sont disponiles à l’adresse <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> et peuvent s’installer sur Windows, Mac ou Linux.</p>
-</section>
-<section id="premiers-pas-dans-r" class="level2">
-<h2 class="anchored" data-anchor-id="premiers-pas-dans-r">Premiers pas dans R</h2>
-<p>Dans la console exécuter les lignes suivantes :</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.141593</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(<span class="dv">3</span><span class="sc">*</span>pi<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -1</code></pre>
-</div>
-</div>
-<p>A partir de maintenant toutes les commandes seront enregistrées dans un fichier script que vous nommerez TD1.R Pour ce faire : File -&gt; New File -&gt; R Script</p>
-<p>La plupart des fonctions mathématiques sont définies dans R (library base)</p>
-</section>
-<section id="les-variables" class="level2">
-<h2 class="anchored" data-anchor-id="les-variables">Les variables</h2>
-<p>Une variable est un objet référencé dans le programme qui associe un identificateur à une valeur d’un certain type.</p>
-<ul>
-<li><strong><em>L’identificateur</em></strong> est le nom de la variable utilisé pour l’appeler,</li>
-<li><strong><em>La valeur</em></strong> est ce que contient la variable,</li>
-<li><strong><em>Le type</em></strong> est l’ensemble dans lequel la variable prend sa valeur.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="dv">2</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supprimer x</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Les variables contenant des caractères (on utilise ““)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="st">"bonjour"</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "bonjour"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-</div>
-<p>Les variables contenant des booléens (vrai ou faux)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="cn">TRUE</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "logical"</code></pre>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -773,10 +729,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./data_frame.html" class="pagination-link" aria-label="Les data frames">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Les data frames</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./vecteurs.html" class="pagination-link" aria-label="Découverte de R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Découverte de R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./graphiques.html" class="pagination-link" aria-label="Les graphiques">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Les graphiques</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

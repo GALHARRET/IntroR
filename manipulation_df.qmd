@@ -1,0 +1,62 @@
+# Manipulations data-frame
+
+## Le pipe 
+
+Le pipe |> natif de R ou bien le pipe de la librairie dplyr permettent d'enchainer une suite de calcul.
+
+Par exemple, on veut calculer la moyenne de la colonne mpg pour les voitures qui ont 6 cylindres et qui sont automatiques (mtcars) :
+
+```{r}
+data("mtcars")
+mean(mtcars[mtcars$cyl==6 & mtcars$am==1,"mpg"])
+```
+
+ce qui donne avec le pipe :
+
+```{r}
+library(dplyr)
+mtcars |>
+  filter(cyl==6 & am==1) |>
+  select(mpg) |>
+  unlist() |>
+  mean()
+```
+La fonction unlist permet de transformer la colonne obtenue par select.
+
+Le pipe revient donc à enchainer des fonctions.
+
+Le package dplyr possède de nombreuses fonctions permettant de faire de la gestion de données : 
+
+- select, pour sélectionner des colonnes
+
+- filter, pour filtrer des lignes selon un (ou plusieurs) critère.
+
+## La fonction mutate()
+
+Elle permet de définir de nouvelles colonnes dans un data frame qui seront le résultat d'un calcul. Par exemple la consommation des voitures est exprimée en mpg (miles per galon) si on veut l'exprimer en L/100km alors on utilise (L/100 km) = 282.48 / MPG
+
+```{r}
+mtcars<-mtcars |>
+  mutate("L/100km"=282.48/mpg) |>
+  round(digits = 1)
+```
+
+
+## group_by(), summarise()
+
+La fonction group_by() permettra de faire des calculs selon les modalités d'une variable qualitative :
+
+```{r}
+df=mtcars |>
+  group_by(cyl,am) |>
+  summarise(M=mean(`L/100km`),SD=sd(`L/100km`))
+df
+```
+Le résultat est un nouveau data frame dans le format tibble que l'on peut utiliser ensuite dans ggplot par exemple.
+
+```{r}
+library(ggplot2)
+ggplot(df,aes(x=factor(cyl),y=M,color=factor(am)))+
+  geom_point(position = position_dodge(.2))+
+  geom_errorbar(aes(ymin=M-2*SD,ymax=M+2*SD),width=.1,position = position_dodge(.2))
+```
