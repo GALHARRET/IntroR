@@ -1,0 +1,282 @@
+# Les graphiques
+
+On va d'abord regarder les représentations graphiques univariées. 
+
+On a deux types de variables :
+
+- qualitatives : les modalités (valeurs) sont des catégories
+
+- quantitatives : les valeurs sont numériques.
+
+On va utiliser le package ***ggplot2*** qui est actuellement le package de référence pour les graphiques.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+
+
+## Graphiques univariées
+
+### Variable qualitative :
+
+On veut représenter le nombre de voitures correspondant à chaque catégorie de cyl :
+
+```{r echo=TRUE,eval=FALSE}
+data("mtcars")
+library(ggplot2)
+ggplot(mtcars,
+       aes(x=factor(cyl)))+
+  geom_bar()
+
+```
+Un graphique ggplot commence toujours par la fonction du même nom dans laquelle on indique le data frame (obligatoirement un df) et aes (Aesthetic mappings) qui décrit les variables qui vont être décrites.
+
+On peut ajouter des titres aux axes et un titre au graphe :
+
+```{r}
+ggplot(mtcars,
+       aes(x=factor(cyl)))+
+  geom_bar()+
+  labs(
+    title="Diagramme en barres",
+    x="NB cylindres",
+    y="NB voitures"
+  )
+```
+On peut aussi paramétrer le fond du graphique :
+
+```{r}
+ggplot(mtcars,
+       aes(x=factor(cyl)))+
+  geom_bar()+
+  labs(
+    title="Diagramme en barres",
+    x="NB cylindres",
+    y="NB voitures"
+  )+
+  theme_minimal()
+```
+Ou sous la forme de diagramme circulaire (avec les poucentages correspondants)
+
+```{r}
+library(scales)
+df=as.data.frame(table(mtcars$cyl))
+colnames(df)[1]="Nb.cyl"
+df=df%>%
+  mutate(Prop=percent(Freq/sum(Freq)))
+ggplot(df, aes(x="", y=Prop,fill=Nb.cyl)) +
+  geom_bar(stat="identity", width=1) +
+  geom_text(aes(label = Prop),
+            position = position_stack(vjust = 0.5))+
+  coord_polar("y", start=0)+
+  theme_void()
+```
+
+On peut aussi les mettre selon la même technique sur le diagramme en barres.
+
+### Variable quantitative
+
+Sous la forme d'histogramme :
+
+```{r}
+ggplot(mtcars,aes(x=wt))+
+  geom_histogram(bins=5,alpha=.4)+
+  theme_minimal()
+```
+Les effectifs sont représentés en ordonnées, bins donne le nombre de classes qui vont être construites et alpha 
+
+ou bien en points par points (on va utiliser la couleur pour distinguer les espèces) :
+
+```{r echo=TRUE,eval=FALSE}
+ggplot(mtcars,aes(x="",y=wt))+
+  geom_jitter(width = .05)+
+  theme_minimal()
+```
+
+On peut y ajouter un boxplot :
+
+```{r echo=TRUE,eval=FALSE}
+ggplot(mtcars,aes(x="",y=wt))+
+  geom_boxplot()+
+  geom_jitter(width = .05)+
+  theme_minimal()
+```
+
+## Graphiques bivariés :
+
+### Une variable quantitative en fonction d'une variable qualitative
+
+Pour les boxplot c'est simple :
+
+```{r}
+ggplot(mtcars,aes(x=factor(cyl),y=wt))+
+  geom_boxplot()+
+  theme_minimal()+
+  labs(x="Nb cylindres")
+```
+Pour les histogrammes :
+
+```{r echo=TRUE}
+ggplot(mtcars,aes(x=wt,fill = factor(cyl)))+
+  geom_histogram(alpha=.4,bins=5)
+```
+ou bien :
+
+```{r}
+ggplot(mtcars,aes(x=wt))+
+  geom_histogram(bins=5,alpha=.4)+
+  facet_grid(~cyl)+theme_minimal()
+```
+
+
+
+## Une variable quantitative en fonction d'une autre variable quantitative
+
+
+```{r echo=TRUE}
+ggplot(mtcars,aes(x=wt,y=mpg))+
+  geom_point()+theme_minimal()
+```
+
+## Une variable qualitative en fonction d'une autre variable qualitative
+
+
+
+```{r echo=TRUE}
+library(ggstats)
+ggplot(mtcars,aes(x=factor(cyl),fill=factor(vs)))+
+  labs(
+    x="Nb de cylindres",
+    title="Proportions des classes",
+    y="Proportions"
+  )+
+  geom_prop_bar()+
+  geom_prop_text()+
+  theme_minimal()
+```
+
+## Exercices
+
+### Exercice 1 :
+
+Télécharger le fichier [temperat](temperat1.csv)  puis ouvrez le dans RStudio (utiliser l'interface graphique), la première colonne correspondra aux noms des lignes du data.frame.
+
+***Premier travail :*** On veut reproduire le graphe suivant :
+
+```{r echo=FALSE,eval=T,fig.align="center"}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+data <- read.csv("temperat1.csv", row.names=1, sep=";")
+ggplot(data,aes(x=Lon,y=Lat,label=rownames(data)))+
+  geom_text()+
+  theme_minimal()
+```
+
+***aide :*** utiliser label=... dans aes et geom_text()
+
+***Deuxième travail :*** Représenter les températures moyennes pour les trois villes : Nantes, Brest et Rennes.
+
+```{r eval=T,fig.align="center"}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+library(reshape2)
+df=as.data.frame(t(data%>%select(Jan:Dec)))
+df$mois=1:12
+df2=df%>%
+  select(mois,Nant,Renn,Bres)%>%
+  melt(id.vars = "mois",variable.name = "Ville")
+ggplot(df2,aes(x=mois,y=value,color=Ville))+
+  geom_point()+
+  geom_line()+
+  theme_minimal()+
+  scale_x_discrete(limits=factor(1:12),labels=rownames(df))
+```
+
+On peut redéfinir 
+
+
+### Exercice 2 :
+
+Télécharger le fichier [bordeaux1](bordeaux1.csv) et ouvrez le dans R à l'aide de l'interface graphique. Les années seront utilisées pour nommer les lignes.
+
+```{r echo=F,eval=T}
+data <- read.csv("bordeaux1.csv",sep = ",")
+```
+
+Il s'agit des données des vins de Bordeaux issues de "Méthodes statistiques en gestion" (M. Tenenhaus, Dunod, 1994).
+
+On cherche à étudier l'éventuelle relation entre la qualité du vin et les variables météorologiques. Les variables sont les suivantes : TEMPERATURE : somme des températures moyennes journalières, SOLEIL : durée d'insolation, CHALEUR : nombre de jours de grande chaleur, PLUIE : hauteur des pluies, Y (QUALITE DU VIN) : 1 (Bon), 2 (Moyen), 3 (Médiocre).
+
+1.  Faire les boxplot des variables température et pluie en fonction de la qualité du vin. Les deux graphes seront dans une même fenêtre. La ligne en pointillé horizontale représente la moyenne globale de la variable (voir fonction ***abline()***). On reclassera les modalités de la variable qualité.
+
+```{r eval=T}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+data$Y1<-factor(data$Y1,levels=c("médiocre","moyen","bon"))
+ggplot(data,aes(x=Y1,y=Temperature))+
+  geom_boxplot()+
+  labs(
+    x="Qualité du vin",
+    y="Température"
+  )+
+  geom_hline(yintercept = mean(data$Temperature),
+             linetype="dashed",
+             colour="red")+
+  theme_minimal()
+
+ggplot(data,aes(x=Y1,y=Pluie))+
+  geom_boxplot()+
+  labs(
+    x="Qualité du vin",
+    y="Pluie"
+  )+
+  geom_hline(yintercept = mean(data$Pluie),
+             linetype="dashed",
+             colour="red")+
+  theme_minimal()
+```
+
+2.  Faire les 3 histogrammes de la variable chaleur en fonction de la qualité du vin dans une même fenêtre graphique. La droite verticale correspond à la moyenne globale.
+
+```{r eval=T}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+
+ggplot(data,aes(x=Chaleur))+
+  geom_histogram(bins=5,alpha=.5)+
+  facet_grid(~Y1)+
+  theme_minimal()
+```
+
+3.  Créer une variable pluie_quali qui correspondra à la variable PLUIE et dont les modalités seront :
+
+-   Faibles lorsque la variable PLUIE sera inférieure à sa médiane
+
+-   Fortes lorsque la variable PLUIE sera supérieure ou égale à sa médiane.
+
+Dessiner la répartition de la qualité des vins en fonctions des deux modalités Faibles et Fortes.
+
+```{r eval=T}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+med<-median(data$Pluie)
+data$pluie_quali<-factor(
+  as.numeric(data$Pluie>med),labels = c("Faibles","Fortes"))
+ggplot(data,aes(x=Y1,fill=pluie_quali))+
+  geom_prop_bar()+
+  geom_prop_text()+
+  xlab("Qualité du vin")
+```
+
+4.  Reproduire le graphique suivant
+
+```{r eval=T}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+
+
+ggplot(data,aes(x=Temperature,y=Pluie,color=Y1,label=Annee))+
+  geom_text()+theme_minimal()
+```

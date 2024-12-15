@@ -1,0 +1,26 @@
+project:
+  type: book
+  output-dir: docs
+  
+book:
+  title: "Introduction à R"
+  author: "Galharret Jean-Michel"
+  date: "Année 2024"
+  chapters:
+    - index.qmd
+    - vecteurs.qmd
+    - matrices.qmd
+    - data_frame.qmd
+    - graphiques.qmd
+    - programmer.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

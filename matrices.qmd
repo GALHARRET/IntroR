@@ -1,0 +1,108 @@
+# Les matrices
+
+Les matrices sont comme en mathématiques des tableaux de données. Attention comme pour les vecteurs les matrices ne contiendront que des éléments du même type (numérique, texte, booléen).
+
+## Définition et fonctions de base
+
+```{r echo=TRUE}
+A=matrix(c(1,2,3,
+           2,1,-1,
+           -3,-1,1),nrow=3)
+```
+
+Quelques fonctions utiles la dimension de la matrice
+
+```{r echo=TRUE}
+dim(A)
+```
+
+Le résultat est donc un vecteur ayant deux éléments le nombre de ligne et le nombre de colonnes
+
+## Indexation des éléments d'une matrice
+
+Les éléments d'une matrice sont identifiés par un numéro de ligne et de colonne entre crochets A\[i,j\]
+
+```{r echo=TRUE}
+A[1,2]
+# première ligne de A 
+A[1,]
+# première colonne de A
+A[,1]
+```
+
+## Exercice :
+
+1.  Générer un vecteur fillmat contenant 250 valeurs tirées selon une loi uniforme continue de paramètres 0 et 10 grâce à la fonction ***runif***.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+fillmat<-runif(250,0,10)
+```
+
+2.  Créer une matrice Mesures de 50 lignes et 5 colonnes contenantes les valeurs de fillmat. Les colonnes seront nommées Mesure1,..., Mesure5.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+Mesures<-matrix(fillmat,nrow=50)
+colnames(Mesures)<-paste("Mesure",1:5,sep="")
+```
+
+3.  Créer un vecteur Groupe de taille 50 contenant des valeurs entières entre 1 et 5 (fonction ***sample***). On interprétera Groupe comme le groupe d'appartenance des 50 lignes de Mesures. Ajouter cette colonne à la matrice Mesures.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+Groupe<-sample(1:5,50,replace=T)
+```
+
+4.  Combien de lignes appartiennent au groupe n°2 ?
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+sum(Groupe==2)
+```
+
+5.  Afficher le numéro des lignes appartenant au groupe n°2.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+which(Groupe==2)
+```
+
+6.  Afficher les lignes de Mesures correspondant au groupe n°2.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+Mesures[Groupe==2,]
+```
+
+7.  Déterminer combien Mesures contient de valeurs inférieures à 5 (on exclura la colonne groupe du comptage).
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+sum(Mesures[,-6]<5)
+```
+
+8.  Calculer la moyenne des valeurs de Mesures correspondant au groupe n°4.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+mean(Mesures[Groupe==4,])
+```
+
+9.  Même question mais pour les 3 premières colonnes uniquement.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Voir la correction"
+mean(Mesures[Groupe==4,1:3])
+```
+
+10. Appliquer à Mesures les fonctions dim, ncol et nrow. A quoi correspondent ces nombres ?
