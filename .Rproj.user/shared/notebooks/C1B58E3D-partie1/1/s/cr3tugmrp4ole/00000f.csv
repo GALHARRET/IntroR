@@ -1,0 +1,4 @@
+"0","#| code-fold: true"
+"0","#| code-summary: ""Voir la correction"""
+"0","Mesures<-matrix(fillmat,nrow=50)"
+"0","colnames(Mesures)<-paste(""Mesure"",1:5,sep="""")"

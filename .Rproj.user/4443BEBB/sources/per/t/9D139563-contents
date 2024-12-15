@@ -1,0 +1,43 @@
+# Présentation rapide de R
+
+Bref historique :
+
+-   R est à la fois un logiciel et un langage. Il est gratuit et open source.
+
+-   Version libre et gratuite du langage S développée chez Bell Laboratories par John Chambers (1980).
+
+-   Robert Gentleman & Ross Ihaka (Université d'Auckland) proposent une première version de R en 1993.
+
+-   R Core Team crée en 1997 assure la maintenance et l'évolution de R.
+
+-   CRAN (Comprehensive R Archive Network) regroupe et met à disposition l'ensemble des éléments de R.
+
+# Fichiers gérés par R
+
+-   Les scripts (fichiers .R) : ils vont contenir les codes R ainsi que des commentaires sur ces codes (très importants par la suite).
+
+-   Les environnements (fichiers .RData) qui seront des ensembles d'objets.
+
+# Interfaces de R :
+
+-   La basique : Rgui (déconseillée) composée d'une fenêtre principale appelée la Console à partir de laquelle on exécute les fonctions.
+
+-   RStudio : interface graphique utilisée.
+
+![RStudio](TD1_files/fig1.png)
+
+# Les librairies de R (ou packages)
+
+De très nombreux packages ont été développés pour R, ils permettent d'ajouter de nouvelles fonctionnalités. Pour installer un package on va dans Tools -\> Install Packages
+
+![Installer un package](TD1_files/fig0.png)
+
+Par exemple (ne le faites pas ) on installe le package equivalence, ce qui est très important c'est qu'il faut demander à R installer toutes les dépendances du package. Ensuite il faut absolument charger le package dans le script pour pouvoir l'utiliser.
+
+```{r eval=FALSE}
+library(equivalence)
+```
+
+# Installer R et RStudio
+
+Les deux logiciels sont disponiles à l'adresse <https://posit.co/download/rstudio-desktop/> et peuvent s'installer sur Windows, Mac ou Linux.

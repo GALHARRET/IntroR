@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "EC503 : cours Algorithmique et programmation"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Introduction
+      - href: partie1.qmd
+        text: Prise en main
+      - href: partie2.qmd
+        text: Graphiques
+      - href: partie3.qmd
+        text: Programmer dans R
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+
+execute:
+  echo: true
+  eval: false
+
